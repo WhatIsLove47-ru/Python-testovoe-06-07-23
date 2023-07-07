@@ -16,7 +16,7 @@ def home_view(request):
             txt_speed = clip_txt.size[0] / duration
             fl = lambda gf,t : gf(t)[:,int(txt_speed*t):int(txt_speed*t)+w]
             moving_txt = clip_txt.fl(fl, apply_to=['mask'])
-            clip = mp.CompositeVideoClip([moving_txt.set_pos(('center','center'))], size = screensize)
+            clip = mp.CompositeVideoClip([moving_txt.set_pos(('left','center'))], size = screensize)
             newfile = NamedTemporaryFile(suffix='.mp4')
             clip.set_duration(duration).write_videofile(newfile.name, fps=25)
             response = FileResponse(open(newfile.name, 'rb'))
