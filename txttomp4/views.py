@@ -20,7 +20,8 @@ def home_view(request):
             newfile = NamedTemporaryFile(suffix='.mp4')
             clip.set_duration(duration).write_videofile(newfile.name, fps=25)
             response = FileResponse(open(newfile.name, 'rb'))
-            response['Content-Disposition'] = f'attachment; filename={slugify(trans(txt))}.mp4'
+            txt = slugify(trans(txt)) or 'Result'
+            response['Content-Disposition'] = f'attachment; filename={txt}.mp4'
             response['Access-Control-Expose-Headers'] = 'Content-Disposition'
             return response
         return null
